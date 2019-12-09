@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+service ByteStreamHashing {
+	//hash the byte stream of a photo file with sha256
+	rpc Hashing (HashRequest) returns (HashReply) {}
+}
+
+//provide the server with input for hashing
+message HashRequest {
+	//the byte stream of a photo file
+	string photoByteStream = 1;
+}
+
+//return the hash result
+message HashReply {
+	string hashedKey = 1;
+}
+
+

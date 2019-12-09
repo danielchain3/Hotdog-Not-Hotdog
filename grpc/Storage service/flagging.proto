@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+service PhotoFlagging {
+
+    //handle user uploading photo
+	rpc UserSubmit (UserSubmitRequest) returns (UserSubmitReply) {}
+
+    //handle user request photo
+    rpc UserRequest (UserRequestRequest) returns (UserRequestReply) {}
+    
+    //handle admin flag photo
+    rpc AdminSubmit (AdminSubmitRequest) returns (AdminSubmitReply) {}
+
+    //handle admin retrieving all hashes
+    rpc AdminRequest (AdminRequestRequest) returns (AdminRequestReply) {}
+}
+
+message UserSubmitRequest {
+    string userId = 1;
+    string hashKey = 2;
+}
+
+message UserSubmitReply {
+    bool rejected = 1;
+    bool existed = 2;
+}
+
+message UserRequestRequest {
+	string userId = 1;
+}
+
+message UserRequestReply {
+	repeated string unflaggedHash = 1;
+}
+
+message AdminSubmitRequest {
+    string hashKey = 1;
+}
+
+message AdminSubmitReply {
+    repeated string hashKeyList = 1;
+    repeated bool flaggedList = 2;
+}
+
+message AdminRequestRequest {
+    string userId = 1;
+}
+
+message AdminRequestReply {
+    repeated string hashKeyList = 1;
+    repeated bool flaggedList = 2;
+}
+

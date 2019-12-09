@@ -7,11 +7,12 @@ import grpc
 import flagging_pb2
 import flagging_pb2_grpc
 
+DB_ADD = '10.107.212.83'
 class PhotoFlagging(flagging_pb2_grpc.PhotoFlaggingServicer):
 
     def UserSubmit(self, request, context):
         ##create connection to redis database
-        r = redis.Redis(host='localhost', port=6379, db=0)
+        r = redis.Redis(host=DB_ADD, port=6379, db=0)
 
         ##nameSpace for user-hash keyvalue
         NSHASH = 'hashs:'
@@ -45,7 +46,7 @@ class PhotoFlagging(flagging_pb2_grpc.PhotoFlaggingServicer):
 
     def UserRequest(self, request, context):
         ##create connection to redis database
-        r = redis.Redis(host='localhost', port=6379, db=0)
+        r = redis.Redis(host=DB_ADD, port=6379, db=0)
 
         ##nameSpace for user-hash keyvalue
         NSHASH = 'hashs:'
@@ -63,7 +64,7 @@ class PhotoFlagging(flagging_pb2_grpc.PhotoFlaggingServicer):
 
     def AdminSubmit(self, request, context):
         ##create connection to redis database
-        r = redis.Redis(host='localhost', port=6379, db=0)
+        r = redis.Redis(host=DB_ADD, port=6379, db=0)
 
         ##nameSpace for user-hash keyvalue
         NSHASH = 'hashs:'
@@ -107,7 +108,7 @@ class PhotoFlagging(flagging_pb2_grpc.PhotoFlaggingServicer):
     
     def AdminRequest(self, request, context):
         ##create connection to redis database
-        r = redis.Redis(host='localhost', port=6379, db=0)
+        r = redis.Redis(host=DB_ADD, port=6379, db=0)
 
         ##nameSpace for user-hash keyvalue
         NSHASH = 'hashs:'

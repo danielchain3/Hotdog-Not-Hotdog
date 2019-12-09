@@ -6,10 +6,13 @@ from django.core.files.move import file_move_safe
 from django.core.files import File, locks
 
 import os
+import sys
 
 from django.core.files.images import ImageFile
 
 import binascii
+
+import hashing_client as hc
 
 
 
@@ -32,7 +35,13 @@ class MyStorage(FileSystemStorage):
         if name is None:
             name = content.name
         byte = bytearray(content.read())
-        print(binascii.hexlify(byte))
+        byte = binascii.hexlify(byte)
+
+        hashOfPhoto = hc.run_hashing(byte)
+        print(name)
+        print(hashOfPhoto) 
+
+        # print(binascii.hexlify(byte))
 
         return self._save(name, content)
 

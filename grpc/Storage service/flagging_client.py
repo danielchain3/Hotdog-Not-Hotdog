@@ -10,7 +10,7 @@ import flagging_pb2_grpc
 
 
 def runUserSubmit(uid, hk):
-    with grpc.insecure_channel('localhost:50051') as channel:
+    with grpc.insecure_channel('0.0.0.0:50051') as channel:
         stub = flagging_pb2_grpc.PhotoFlaggingStub(channel)
         response = stub.UserSubmit(flagging_pb2.UserSubmitRequest(userId = uid, hashKey = hk))
         result = {
@@ -21,14 +21,14 @@ def runUserSubmit(uid, hk):
 
 
 def runUserRequest(uid):
-    with grpc.insecure_channel('localhost:50051') as channel:
+    with grpc.insecure_channel('0.0.0.0:50051') as channel:
         stub = flagging_pb2_grpc.PhotoFlaggingStub(channel)
         response = stub.UserRequest(flagging_pb2.UserRequestRequest(userId = uid))
         return response.unflaggedHash
 
 
 def runAdminSubmit(hk):
-    with grpc.insecure_channel('localhost:50051') as channel:
+    with grpc.insecure_channel('0.0.0.0:50051') as channel:
         stub = flagging_pb2_grpc.PhotoFlaggingStub(channel)
         response = stub.AdminSubmit(flagging_pb2.AdminSubmitRequest(hashKey = hk))
         result = {}
@@ -38,7 +38,7 @@ def runAdminSubmit(hk):
         return result
 
 def runAdminRequest(uid):
-    with grpc.insecure_channel('localhost:50051') as channel:
+    with grpc.insecure_channel('0.0.0.0:50051') as channel:
         stub = flagging_pb2_grpc.PhotoFlaggingStub(channel)
         response = stub.AdminRequest(flagging_pb2.AdminRequestRequest(userId = uid))
         result = {}

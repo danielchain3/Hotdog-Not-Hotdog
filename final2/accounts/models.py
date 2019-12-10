@@ -15,9 +15,11 @@ from django.forms import ModelForm, TextInput
 
 class Post(models.Model):
     # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    hash = models.TextField(primary_key=True)
+    id = models.AutoField(primary_key=True)
+    hash = models.TextField()
     title = models.TextField()
     cover = models.ImageField(upload_to='images/')
+    approval = models.BooleanField(default=True, editable=True)
     # user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
 
     def __str__(self):

@@ -10,8 +10,10 @@
   <p><a href="{% url 'add_post' %}">add post</a></p>
   <ul>
     {% for post in object_list %}
-      <h2>{{  post.title  }}</h2>
-      <img src="{{ post.cover.url}}" alt="{{ post.title }}">
+      {% if post.approval %}`
+        <h2>{{  post.title  }}</h2>
+        <img src="{{ post.cover.url}}" alt="{{ post.title }}">
+      {% endif %}  
     {% endfor %}
   </ul>
 

@@ -5,8 +5,8 @@ import sys
 
 import grpc
 
-import hashing_pb2
-import hashing_pb2_grpc
+from . import hashing_pb2
+from . import hashing_pb2_grpc
 
 
 def run_hashing(bs):

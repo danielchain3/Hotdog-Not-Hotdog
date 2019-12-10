@@ -15,6 +15,10 @@ from users.forms import CustomUserCreationForm
 from .forms import PostForm
 from .models import Post
 
+
+import hashlib
+from PIL import Image
+
 # Create your views here.
 
 class SignUp(generic.CreateView):
@@ -27,13 +31,38 @@ class HomePageView(generic.ListView):
     model = Post
     template_name = 'home.html'
 
-
 class CreatePostView(generic.CreateView):
     model = Post
     form_class = PostForm
     template_name = 'post.html'
     success_url = reverse_lazy('home')
+
+# def post_view(request):
+#     # if this is a POST request we need to process the form data
+#     if request.method == 'POST':
+#         # create a form instance and populate it with data from the request:
+#         form = PostForm(request.POST)
+#         # check whether it's valid:
+#         if form.is_valid():
+#             title = form.cleaned_data['title']
+#             cover = form.cleaned_data['cover']
+#             hash = hashlib.md5(Image.open(cover).tobytes()).hexdigest()
+
+#             form.save()
+#             return HttpResponseRedirect('home.html')
+
+#     # if a GET (or any other method) we'll create a blank form
+#     else:
+#         form = PostForm()
+#     return render(request, 'post.html', {'form': form})
     
+# def post_view(request, id): 
+#     instance = get_object_or_404(MyModel, id=id)
+#     form = MyForm(request.POST or None, instance=instance)
+#     if form.is_valid():
+#         form.save()
+#         return redirect('next_view')
+#     return render(request, 'my_template.html', {'form': form}) 
 
 # # Authenticated views
 # #####################

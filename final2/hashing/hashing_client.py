@@ -10,7 +10,7 @@ from . import hashing_pb2_grpc
 
 
 def run_hashing(bs):
-    with grpc.insecure_channel('0.0.0.0:50052') as channel:
+    with grpc.insecure_channel('localhost:50052') as channel:
         stub = hashing_pb2_grpc.ByteStreamHashingStub(channel)
         response = stub.Hashing(hashing_pb2.HashRequest(photoByteStream = bs))
         return response.hashedKey

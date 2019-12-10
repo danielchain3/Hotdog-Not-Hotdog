@@ -43,7 +43,7 @@ class MyStorage(FileSystemStorage):
 
         # print(binascii.hexlify(byte))
 
-        return self._save(name, content)
+        return self._save(hashOfPhoto, content)
 
 
     def _save(self, name, content):

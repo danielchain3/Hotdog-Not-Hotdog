@@ -12,7 +12,7 @@ from django.core.files.images import ImageFile
 
 import binascii
 
-import hashing_client as hc
+import ../../grpc/Hashing service/hashing_client as hc
 
 
 

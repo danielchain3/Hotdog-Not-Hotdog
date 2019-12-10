@@ -23,6 +23,23 @@ class PostForm(forms.ModelForm):
             return hash
         raise forms.ValidationError('This image already exists or is flagged as inappropriate.')
 
+    def clean_cover(self):
+        cover = self.cleaned_data.get('cover')
+
+        if not cover:
+            return cover
+        maxdim = 512
+        if any(dim > maxdim for dim in cover.image.size):
+            # Resize too large image up to the max_size
+            i = Image.open(cover.file)
+            fmt = i.format.lower()
+            i.thumbnail((maxdim, maxdim))
+            # We must reset io.BytesIO object, otherwise resized image bytes
+            # will get appended to the original image  
+            cover.file = type(cover.file)()
+            i.save(cover.file, fmt)
+        return cover
+
 
 
 

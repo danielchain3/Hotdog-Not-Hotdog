@@ -35,7 +35,7 @@ class CreatePostView(generic.CreateView):
     model = Post
     form_class = PostForm
     template_name = 'post.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('add_post')
 
 # def post_view(request):
 #     # if this is a POST request we need to process the form data

@@ -4,6 +4,7 @@ from .models import Post
 import binascii
 import hashlib
 from PIL import Image
+from hashing import hashing_client as hc
 
 class PostForm(forms.ModelForm):
 
@@ -16,7 +17,9 @@ class PostForm(forms.ModelForm):
     def clean_hash(self):
         cover = self.cleaned_data.get('cover', False)
 
-        hash = hashlib.md5(Image.open(cover).tobytes()).hexdigest()
+        bytestream = (str)(Image.open(cover).tobytes())
+s
+        hash = hc.run_hashing(bytestream)
         try:
             match = Post.objects.get(hash=hash)
         except Post.DoesNotExist:

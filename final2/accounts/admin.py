@@ -7,7 +7,7 @@ from django.contrib.auth.admin import UserAdmin
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['title','cover','hash', 'approval']
+    list_display = ['name','image','hash', 'approval']
     list_editable = ['approval']
 
 admin.site.register(Post, PostAdmin)

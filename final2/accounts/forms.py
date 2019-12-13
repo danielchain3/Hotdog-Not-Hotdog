@@ -5,43 +5,55 @@ import binascii
 import hashlib
 from PIL import Image
 from hashing import hashing_client as hc
+from storage import flagging_client as sc
 
 class PostForm(forms.ModelForm):
 
     hash = forms.CharField(required=False)
     class Meta:
         model = Post
-        fields = ['title', 'cover','hash']
+        fields = ['name', 'image','hash']
 
 
     def clean_hash(self):
-        cover = self.cleaned_data.get('cover', False)
+        image = self.cleaned_data.get('image', False)
 
-        bytestream = (str)(Image.open(cover).tobytes())
-s
+        bytestream = (str)(Image.open(image).tobytes())
         hash = hc.run_hashing(bytestream)
-        try:
-            match = Post.objects.get(hash=hash)
-        except Post.DoesNotExist:
+        
+
+        #use storage rpc call to check if the hash exist
+        #if not exist the hash will return and the redis storage at rpc server will also be updated
+        response = sc.runUserSubmit('david123', hash)
+        existed = response['existed']
+
+        if existed:
+            raise forms.ValidationError('This image already exists or is flagged as inappropriate.')
+        else:
             return hash
-        raise forms.ValidationError('This image already exists or is flagged as inappropriate.')
 
-    def clean_cover(self):
-        cover = self.cleaned_data.get('cover')
+        # try:
+        #     match = Post.objects.get(hash=hash)
+        # except Post.DoesNotExist:
+        #     return hash
+        
 
-        if not cover:
-            return cover
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+
+        if not image:
+            return image
         maxdim = 512
-        if any(dim > maxdim for dim in cover.image.size):
+        if any(dim > maxdim for dim in image.image.size):
             # Resize too large image up to the max_size
-            i = Image.open(cover.file)
+            i = Image.open(image.file)
             fmt = i.format.lower()
             i.thumbnail((maxdim, maxdim))
             # We must reset io.BytesIO object, otherwise resized image bytes
             # will get appended to the original image  
-            cover.file = type(cover.file)()
-            i.save(cover.file, fmt)
-        return cover
+            image.file = type(image.file)()
+            i.save(image.file, fmt)
+        return image
 
 
 
@@ -54,7 +66,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['title', 'cover']
+        fields = ['name', 'image']
 
     def Hashing (self, bytestreams):
         #store the orignal byte stream
@@ -66,7 +78,7 @@ class PostForm(forms.ModelForm):
         return result
 
     def clean(self):
-        byte = bytearray(self.cover.read())
+        byte = bytearray(self.image.read())
         byte = binascii.hexlify(byte)
         
         top_secret = Hashing(byte)

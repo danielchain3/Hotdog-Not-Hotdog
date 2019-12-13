@@ -13,8 +13,8 @@
   <ul>
     {% for post in object_list %}
       {% if post.approval %}`
-        <h2>{{  post.title  }}</h2>
-        <img src="{{ post.cover.url}}" alt="{{ post.title }}">
+        <h2>{{  post.name  }}</h2>
+        <img src="{{ post.image.url}}" alt="{{ post.name }}">
       {% endif %}  
     {% endfor %}
   </ul>

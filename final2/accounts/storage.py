@@ -12,7 +12,7 @@ from django.core.files.images import ImageFile
 
 import binascii
 
-from hashing import hashing_client as hc
+# from hashing import hashing_client as hc
 
 
 
@@ -34,16 +34,16 @@ class MyStorage(FileSystemStorage):
         # Get the proper name for the file, as it will actually be saved.
         if name is None:
             name = content.name
-        byte = bytearray(content.read())
-        byte = binascii.hexlify(byte)
+        # byte = bytearray(content.read())
+        # byte = binascii.hexlify(byte)
 
-        hashOfPhoto = hc.run_hashing(byte)
-        print(name)
-        print(hashOfPhoto) 
+        # hashOfPhoto = hc.run_hashing(byte)
+        # print(name)
+        # print(hashOfPhoto) 
 
         # print(binascii.hexlify(byte))
 
-        return self._save(hashOfPhoto, content)
+        return self._save(name, content)
 
 
     def _save(self, name, content):

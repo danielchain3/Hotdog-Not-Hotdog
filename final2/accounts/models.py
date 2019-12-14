@@ -9,7 +9,7 @@ from django.contrib.auth.models import AbstractUser
 from users.models import CustomUser
 from django.forms import ModelForm, TextInput
 
-# from .storage import MyStorage
+from .storage import MyStorage
 
 # Create your models here.
 

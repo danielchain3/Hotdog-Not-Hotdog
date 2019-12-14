@@ -25,7 +25,11 @@ SECRET_KEY = '9ys-#8(lm0cg@4dvw3!l458ijnhtetb&r=3v#m+p=2l+@7zg!3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 'dog_bucket_1'
+
 
 
 # Application definition
@@ -75,6 +79,8 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# import pymysql  # noqa: 402
+# pymysql.install_as_MySQLdb()
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

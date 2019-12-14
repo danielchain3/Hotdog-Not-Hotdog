@@ -2,10 +2,14 @@
 {% extends 'base.html' %}
 
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-{% block title %}Home{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+{% block title %}Hotdog Not Hotdog{% endblock %}
+
 
 {% block content %}
+<h1>Hotdog Not Hotdog</h1>
+
+<img class="main" src="{% static 'img/hotdog.gif' %}"></img>
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
   <p><a href="{% url 'logout' %}">logout</a></p>
@@ -20,8 +24,11 @@
   </ul>
 
 {% else %}
-  <p><a href="{% url 'signup' %}">Sign Up</a></p>
-  <a href="{% url 'login' %}">login</a>
+<div style="text-align:center">
+    <div style='padding-top:5%'>
+    <a class="button bouncy" href="{% url 'signup' %}">Sign Up</a>
+    <a class="button bouncy" href="{% url 'login' %}">Login</a>
+    </div>
+</div>
 {% endif %}
 {% endblock %}
-

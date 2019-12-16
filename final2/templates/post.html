@@ -2,13 +2,16 @@
 {% comment %} {% extends 'base.html' %} {% endcomment %}
 
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
-<h1>Create Post Page</h1>
-<a href="{% url 'home' %}">back</a>
+<h1>Add a Post</h1>
+<a class="button bouncy" href="{% url 'home' %}">Back</a>
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit">Submit New Post</button>
+  Images must be under 26kb<br>
+  <button class="button bouncy" style="font-size:15px" type="submit">
+      Submit New Post
+  </button>
 </form>
 

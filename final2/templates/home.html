@@ -3,6 +3,7 @@
 
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
 {% block title %}Hotdog Not Hotdog{% endblock %}
 
 
@@ -11,17 +12,26 @@
 
 <img class="main" src="{% static 'img/hotdog.gif' %}"></img>
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">logout</a></p>
-  <p><a href="{% url 'add_post' %}">add post</a></p>
-  <ul>
-    {% for post in object_list %}
-      {% if post.approval %}`
-        <h2>{{  post.name  }}</h2>
-        <img src="{{ post.image.url}}" alt="{{ post.name }}">
-      {% endif %}  
-    {% endfor %}
-  </ul>
+<div style="text-align:center; padding-top:3%; font-size:20px">
+    Welcome {{ user.username }}!
+</div>
+    <div style="text-align:center">
+        <div style='padding-top:5%'>
+            <a class="button bouncy" href="{% url 'logout' %}">
+                Logout
+            </a>
+            <a class="button bouncy" href="{% url 'add_post' %}">
+                Add a Post
+            </a>
+        </div>
+    </div>
+    <h1 style="font-size:40px; padding-top:3%">Images</h1>
+        {% for post in object_list %}
+          {% if post.approval %}
+                <h2>{{  post.name  }}</h2>
+                <img src="{{ post.image.url}}" alt="{{ post.name }}">
+          {% endif %}  
+        {% endfor %}
 
 {% else %}
 <div style="text-align:center">

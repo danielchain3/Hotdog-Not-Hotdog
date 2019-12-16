@@ -28,8 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_BUCKET_NAME = 'dog_bucket_1'
-
+GS_BUCKET_NAME = 'dog_bucket_2'
 
 
 # Application definition
